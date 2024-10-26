@@ -6,6 +6,7 @@ let modalBorrar
 
 function init ()
 {
+
   let storedData = localStorage.getItem('persona')
   if (storedData)
     data = JSON.parse(storedData)
@@ -18,7 +19,7 @@ function init ()
     mostrarDatos()
     Eventos()
 }
-
+// Manejador de Eventos para los botones
 function Eventos()
 {
     // agregar persona mediante un modal
@@ -48,7 +49,7 @@ function ModalCrearPersona()
 {
     modalCrear.show()
 }
-
+//Modal que permite editar una persona
 function ModalEditarPersona(id)
 {
     modalEditar.show()
@@ -65,6 +66,8 @@ function ModalEditarPersona(id)
     document.getElementById('nombre-editable').value = nombre
     document.getElementById('apellido-editable').value = apellido
 
+    // Se crea El manejadro de eventos de para confirmar la edicion de datos
+
     let guardarEditable = document.getElementById('editar_persona')
     //clona el boton tal y como esta programado (atributos y contenido) pero sin eventos
     //esto es util para que no tenga eventos duplicados o erroneos
@@ -77,6 +80,7 @@ function ModalEditarPersona(id)
     } )
 
 }
+//metodo para visualizar el modal para borrar
 function modalBorrarPersona(id)
 {
     modalBorrar.show()
@@ -95,8 +99,9 @@ function modalBorrarPersona(id)
         return;
     }
         
-    // confirmar al borrar una persona
+    // Manejador de eventos confirmar al borrar una persona
     let borrarDefinitivamente = document.getElementById('borrar-definitivamente')
+
     //clona el boton tal y como esta programado (atributos y contenido) pero sin eventos
     //esto es util para que no tenga eventos duplicados o erroneos
     borrarDefinitivamente.replaceWith(borrarDefinitivamente.cloneNode(true)); 
@@ -106,7 +111,7 @@ function modalBorrarPersona(id)
            borrarPersona(indice)
     } )
 }
-
+// borra la persona
 function borrarPersona(indice) {
     console.log('Se borró la persona: ' + JSON.stringify(data[indice]));
     data.splice(indice, 1); // Eliminar la persona específica
@@ -114,7 +119,7 @@ function borrarPersona(indice) {
     mostrarDatos();
     modalBorrar.hide();
 }
-
+// Actualiza la persona por medio del id
 function actualizarPersona(id)
 {
     for(i = 0; i < data.length; i++)
@@ -135,7 +140,7 @@ function actualizarPersona(id)
     
 
 }
-
+//Metodo que retorna el maximo id
 function getID() {
     let storedData = localStorage.getItem('persona');
     if (storedData) {
@@ -152,7 +157,7 @@ function getID() {
         return 1;
     }
 }
-
+// metodo para agreagar persona
 function agregarPersona()
 {
     let nombre = document.getElementById('nombre').value
@@ -175,7 +180,7 @@ function agregarPersona()
     document.getElementById('apellido').value = ''
 
 }
-
+// muestra los datos del LocalStorage en tablas
 function mostrarDatos()
 {
     let tbody = document.getElementById('cuerpo')
@@ -223,61 +228,5 @@ function mostrarDatos()
     Eventos()
 }
 
-
+//Inicializa los todo
 window.addEventListener('load',init)
-
-
-/* 
-
-
-function crearEncabezado()
-{
-    // usar bootstrap
-    let bootstrap = document.createElement('link')
-    bootstrap.href = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css'
-    bootstrap.rel = 'stylesheet'
-    document.querySelector('head').appendChild(bootstrap)
-
-    //encabezado
-    /*
-    let header = document.createElement('h1')
-    header.innerText = 'Sistema Escolar'
-    body.appendChild(header)*/
-
-/*}
-
-function crearCuerpo()
-{
-    let buttonAgregar = document.createElement('button')
-    buttonAgregar.id = 'botonAgregar'
-    buttonAgregar.innerText = '+Nuevo'
-    buttonAgregar.classList.add('btn', 'btn-primary')
-    body.appendChild(buttonAgregar)
-
-    //Crea la table
-    let tabla = document.createElement('table')
-    tabla.id = 'tabla'
-    tabla.classList.add('table','table-primary')
-    body.appendChild(tabla)
-    // crear el thead
-    let thead = document.createElement('thead')
-    thead.classList.add('table-primary')
-    body.appendChild(thead)
-    // columna nombre
-    let col_nombre = document.createElement('th')
-    col_nombre.classList.add('table-primary')
-    col_nombre.innerText = 'Nombre'
-    body.appendChild(col_nombre) 
-    // columna apellido
-    let col_ap = document.createElement('th')
-    col_ap.innerText = 'Apellido'
-    col_ap.classList.add('table-primary')
-    body.appendChild(col_ap)
-    //columna acciones
-    let col_acciones = document.createElement('th')
-    col_acciones.innerText = 'Acciones'
-    col_acciones.classList.add('table-primary')
-    body.appendChild(col_acciones)
-}
-
-*/
